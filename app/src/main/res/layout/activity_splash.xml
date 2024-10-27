@@ -6,16 +6,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SplashActivity"
-    android:background="@color/black">
+    android:background="@color/Splash_Color">
 
-   <ImageView
-       android:layout_width="400dp"
-       android:layout_height="400dp"
-       android:src="@drawable/app_logo"
-       android:scaleType="centerCrop"
-       app:layout_constraintTop_toTopOf="parent"
-       app:layout_constraintBottom_toBottomOf="parent"
-       app:layout_constraintStart_toStartOf="parent"
-       app:layout_constraintEnd_toEndOf="parent"/>
+   <ImageView android:id="@+id/appLogo"
+   android:layout_width="match_parent"
+   android:layout_height="match_parent"
+   android:src="@drawable/app_logo"
+   android:scaleType="fitXY"
+   app:layout_constraintTop_toTopOf="parent"
+   app:layout_constraintBottom_toBottomOf="parent"
+   app:layout_constraintStart_toStartOf="parent"
+   app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

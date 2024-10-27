@@ -2,7 +2,15 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="gradient_start">#ff7e5f</color>
-    <color name="gradient_end">#feb47b</color>
-    <color name="gradient_alt">#ff758c</color>
+    <color name="gray">#DBD9D9</color>
+    <color name="gray1">#F0F3F7</color>
+    <color name="gray2">#BEC7D3</color>
+    <color name="green">#109E38</color>
+    <color name="gradient_start">#ff0000</color>
+    <color name="gradient_end">#8b0000</color>
+    <color name="gradient_alt">#221D31</color>
+    <color name="Splash_Color">#e52d27</color>
+    <color name="checked_color">#109E38</color>
+    <color name="unchecked_color">#FFFFFF</color>
+
 </resources>

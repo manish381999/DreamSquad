@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_150sdp"
+        android:scaleType="fitCenter"
+        android:background="@drawable/spotlight_background"/>
+
+    <TextView
+        android:id="@+id/imageViewName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/_minus15sdp"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:text="Cricket"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_16sdp" />
+</LinearLayout>
