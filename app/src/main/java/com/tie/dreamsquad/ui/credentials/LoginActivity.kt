@@ -3,6 +3,7 @@ package com.tie.dreamsquad.ui.credentials
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
@@ -35,6 +36,7 @@ class LoginActivity : AppCompatActivity() {
     private var imageDataList: MutableList<ImageData> = mutableListOf()
     private val autoScrollHandler = Handler(Looper.getMainLooper())
 
+
     private val autoScrollRunnable = object : Runnable {
         override fun run() {
             val currentItem = binding.vpImageSlider.currentItem
@@ -52,19 +54,17 @@ class LoginActivity : AppCompatActivity() {
 
         sliderAdapter = SliderAdapter(this, imageDataList)
         binding.vpImageSlider.adapter = sliderAdapter
+        initComponents()
+        clickListeners()
+    }
 
-        fetchImageUrls()
-        setTermsAndConditionsText() // Set colored T&C text
-        // Create Notification Channel
-        createNotificationChannel()
-
+    private fun clickListeners() {
         binding.btnContinue.setOnClickListener {
             if (checkValidation()) {
                 // Proceed with the action, like sending the OTP
                 loginWithOtp()
             }
         }
-
         // TextInputEditText and CheckBox listener to enable button based on conditions
         binding.tilMobileNo.editText?.addTextChangedListener(textWatcher)
         binding.CheckBox.setOnCheckedChangeListener { _, isChecked ->
@@ -74,6 +74,13 @@ class LoginActivity : AppCompatActivity() {
             binding.CheckBox.buttonTintList = ContextCompat.getColorStateList(this, color)
         }
     }
+
+    private fun initComponents() {
+        fetchImageUrls()
+        setTermsAndConditionsText()
+        createNotificationChannel()
+    }
+
     private fun createNotificationChannel() {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
@@ -83,30 +90,27 @@ class LoginActivity : AppCompatActivity() {
             ).apply {
                 description = "Channel for OTP notifications"
             }
-
             val notificationManager = getSystemService(NotificationManager::class.java)
             notificationManager.createNotificationChannel(channel)
         }
     }
 
-
-
-
     private fun checkValidation(): Boolean {
         // Retrieve the input from the TextInputEditText inside the TextInputLayout
         val mobileNumber = binding.tilMobileNo.editText?.text.toString().trim()
-
         return when {
             mobileNumber.isEmpty() -> {
                 // Show an error message if the input is empty
                 binding.tilMobileNo.error = "Mobile number cannot be empty"
                 false
             }
+
             mobileNumber.length < 10 -> {
                 // Show an error message if the input is less than 10 digits
                 binding.tilMobileNo.error = "Mobile number must be 10 digits"
                 false
             }
+
             else -> {
                 // Clear any previous error if the input is valid
                 binding.tilMobileNo.error = null
@@ -154,7 +158,12 @@ class LoginActivity : AppCompatActivity() {
         val end = start + "T&C".length
 
         // Set color for "T&C"
-        spannable.setSpan(ForegroundColorSpan(Color.parseColor("#FF0000")), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE) // Adjust color as needed
+        spannable.setSpan(
+            ForegroundColorSpan(Color.parseColor("#FF0000")),
+            start,
+            end,
+            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+        ) // Adjust color as needed
 
         // Set the spannable text to the TextView
         binding.tvAgree.text = spannable
@@ -182,15 +191,26 @@ class LoginActivity : AppCompatActivity() {
 
     private fun loginWithOtp() {
         val mobileNumber = binding.tilMobileNo.editText?.text.toString().trim()
-
         ApiClient.api.loginWithOtp(mobileNumber)
             .enqueue(object : retrofit2.Callback<OtpResponse> {
-                override fun onResponse(call: Call<OtpResponse>, response: retrofit2.Response<OtpResponse>) {
+                override fun onResponse(
+                    call: Call<OtpResponse>,
+                    response: retrofit2.Response<OtpResponse>
+                ) {
                     if (response.isSuccessful) {
                         val otpResponse = response.body()
                         if (otpResponse != null && otpResponse.status == "success") {
                             // Print OTP to Logcat
                             Log.d("LoginWithOtp", "OTP: ${otpResponse.otp}")
+
+                            if (otpResponse != null && otpResponse.status == "success") {
+                                Log.d("LoginWithOtp", "OTP to be passed: ${otpResponse.otp}")
+                                val intent = Intent(this@LoginActivity, OtpActivity::class.java)
+                                intent.putExtra("mobile_number", mobileNumber)
+                                intent.putExtra("otp", otpResponse.otp) // Send the OTP
+                                startActivity(intent)
+                            }
+
 
                             // Show OTP in a Notification
                             showOtpNotification(otpResponse.otp)
@@ -208,14 +228,15 @@ class LoginActivity : AppCompatActivity() {
             })
     }
 
-    private fun showOtpNotification(otp: Int) {
-        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+    private fun showOtpNotification(otp: String) {
+        val notificationManager =
+            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
         // Build the notification
         val notification = NotificationCompat.Builder(this, "OTPChannel")
             .setSmallIcon(R.drawable.app_logo)  // Replace with your app's icon
-            .setContentTitle("Your OTP Code")
-            .setContentText("Your OTP is $otp")
+            .setContentTitle("DreamSquad")
+            .setContentText("$otp is your OTP for DreamSquad")
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .build()
 

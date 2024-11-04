@@ -1,10 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/login_screen_bg"
     tools:context=".ui.credentials.OtpActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_Almost_There"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_30sdp"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="Almost There!"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_16sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_enter_otp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_minus5sdp"
+            android:gravity="center"
+            android:text="Enter the OTP sent on"
+            android:textColor="@color/gray"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_Almost_There" />
+
+        <EditText
+            android:id="@+id/et_otp_1"
+            style="@style/OtpBoxStyle"
+            app:layout_constraintEnd_toStartOf="@+id/et_otp_2"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_enter_otp"
+            android:layout_marginTop="@dimen/_30sdp"/>
+
+        <EditText
+            android:id="@+id/et_otp_2"
+            style="@style/OtpBoxStyle"
+            app:layout_constraintEnd_toStartOf="@+id/et_otp_3"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/et_otp_1"
+            app:layout_constraintTop_toBottomOf="@id/tv_enter_otp"
+            android:layout_marginTop="@dimen/_30sdp"/>
+
+        <EditText
+            android:id="@+id/et_otp_3"
+            style="@style/OtpBoxStyle"
+            app:layout_constraintEnd_toStartOf="@+id/et_otp_4"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/et_otp_2"
+            app:layout_constraintTop_toBottomOf="@id/tv_enter_otp"
+            android:layout_marginTop="@dimen/_30sdp"/>
+
+        <EditText
+            android:id="@+id/et_otp_4"
+            style="@style/OtpBoxStyle"
+            app:layout_constraintEnd_toStartOf="@+id/et_otp_5"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/et_otp_3"
+            app:layout_constraintTop_toBottomOf="@id/tv_enter_otp"
+            android:layout_marginTop="@dimen/_30sdp"/>
+
+        <EditText
+            android:id="@+id/et_otp_5"
+            style="@style/OtpBoxStyle"
+            app:layout_constraintEnd_toStartOf="@+id/et_otp_6"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/et_otp_4"
+            app:layout_constraintTop_toBottomOf="@id/tv_enter_otp"
+            android:layout_marginTop="@dimen/_30sdp"/>
+
+        <EditText
+            android:id="@+id/et_otp_6"
+            style="@style/OtpBoxStyle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/et_otp_5"
+            app:layout_constraintTop_toBottomOf="@id/tv_enter_otp"
+            android:layout_marginTop="@dimen/_30sdp"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_submit"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_32sdp"
+            android:layout_marginTop="@dimen/_30sdp"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:layout_marginEnd="@dimen/_20sdp"
+            android:background="@drawable/bg_disable_continue"
+            app:backgroundTint="@null"
+            android:textColor="@color/gray2"
+            android:text="Submit OTP"
+            app:layout_constraintTop_toBottomOf="@id/et_otp_3"/>
+
+        <TextView
+            android:id="@+id/tv_resend_otp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:text="Didn't receive OTP? Resend OTP"
+            android:textColor="@color/gray2"
+            app:layout_constraintTop_toBottomOf="@id/btn_submit"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</ScrollView>
