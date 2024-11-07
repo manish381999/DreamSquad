@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">DreamSquad</string>
     <string name="mobile_number">Mobile number</string>
+    <string name="name" />
+    <string name="email_id" />
 </resources>
