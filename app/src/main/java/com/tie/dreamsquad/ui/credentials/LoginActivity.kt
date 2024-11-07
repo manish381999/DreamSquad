@@ -210,8 +210,6 @@ class LoginActivity : AppCompatActivity() {
                                 intent.putExtra("otp", otpResponse.otp) // Send the OTP
                                 startActivity(intent)
                             }
-
-
                             // Show OTP in a Notification
                             showOtpNotification(otpResponse.otp)
                         } else {
