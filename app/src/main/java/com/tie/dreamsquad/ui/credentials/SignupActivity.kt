@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
+import com.tie.dreamsquad.MainActivity
 import com.tie.dreamsquad.R
 import com.tie.dreamsquad.databinding.ActivitySignupBinding
 import com.tie.dreamsquad.ui.credentials.model.UserDetails
@@ -109,33 +110,25 @@ class SignupActivity : AppCompatActivity() {
 
                         if (userDetails.status == "success") {
                             // Handle successful response
-                            Toast.makeText(
-                                this@SignupActivity,
-                                userDetails.message,
-                                Toast.LENGTH_SHORT
-                            ).show()
-                            val updatedUser = userDetails.user
+                            Toast.makeText(this@SignupActivity, userDetails.message, Toast.LENGTH_SHORT).show()
+                            // Save user data in SharedPreferences
+                            SP.savePreferences(this@SignupActivity, SP.USER_ID, userDetails.user?.id.toString())
+                            SP.savePreferences(this@SignupActivity, SP.USER_MOBILE, userDetails.user?.mobile_number)
+                            SP.savePreferences(this@SignupActivity, SP.USER_NAME, userDetails.user?.name)
+                            SP.savePreferences(this@SignupActivity, SP.USER_EMAIL, userDetails.user?.email_id)
+                            SP.savePreferences(this@SignupActivity, SP.USER_PROFILE_PIC, userDetails.user?.profile_pic)
+                            SP.savePreferences(this@SignupActivity, SP.USER_IS_VERIFIED, userDetails.user?.is_verified.toString())
+                            SP.savePreferences(this@SignupActivity, SP.USER_STATUS, userDetails.user?.status.toString())
+                            SP.savePreferences(this@SignupActivity, SP.USER_CREATED_AT, userDetails.user?.created_at)
 
-                            // Log updated user details
-                            updatedUser?.let {
-                                Log.d(
-                                    "API Response",
-                                    "Updated User: ${it.name}, ${it.email_id}, ${it.profile_pic}"
-                                )
+                            // Save LOGIN_STATUS as true (user is logged in)
+                            SP.savePreferences(this@SignupActivity, SP.LOGIN_STATUS, "true")
 
-                                // Example: update UI or navigate to another activity
-                                Toast.makeText(
-                                    this@SignupActivity,
-                                    "Welcome, ${it.name}",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            }
+                            val intent = Intent(this@SignupActivity, MainActivity::class.java)
+                            startActivity(intent)
+                            finish()
                         } else {
-                            Toast.makeText(
-                                this@SignupActivity,
-                                userDetails.message,
-                                Toast.LENGTH_SHORT
-                            ).show()
+                            Toast.makeText(this@SignupActivity, userDetails.message, Toast.LENGTH_SHORT).show()
                             Log.d("API Response", "Error: ${userDetails.message}")
                         }
                     } else {
