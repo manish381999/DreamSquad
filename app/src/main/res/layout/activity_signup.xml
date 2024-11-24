@@ -38,8 +38,8 @@
         <!-- Profile Picture Upload -->
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/iv_profile_pic"
-            android:layout_width="@dimen/_80sdp"
-            android:layout_height="@dimen/_80sdp"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="@dimen/_100sdp"
             android:layout_marginTop="@dimen/_20sdp"
             android:scaleType="centerCrop"
             android:background="@drawable/profile_placeholder"
